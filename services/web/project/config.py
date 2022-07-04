@@ -4,6 +4,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 baseurl = 'https://www.ebi.ac.uk/pdbe/graph-api/compound/summary/'
 column_list = ['compound', 'name', 'formula', 'inchi', 'inchi_key', 'smiles', 'cross_links_count']
+column_width = 13
 
 
 

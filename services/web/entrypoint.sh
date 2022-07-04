@@ -12,6 +12,5 @@ then
 fi
 
 python manage.py create_db
-#python manage.py get_data
 
 exec "$@"

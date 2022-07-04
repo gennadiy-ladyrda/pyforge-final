@@ -18,7 +18,6 @@ def create_db():
 @cli.command("get_data")
 def get_data():
     compounds_list = ['ADP', 'ATP', 'STI', 'ZID', 'DPM', 'XP9', '18W', '29P']
-    # compounds_list = ['ADP']
     for compound in compounds_list:
         sleep(1)
         response = requests.get(url=f'{baseurl}{compound}')
@@ -27,7 +26,6 @@ def get_data():
             raise Exception("Request failed", response.status_code, response.reason)
         else:
             response_dict = response.json()
-            print(response_dict)
             compound_value = compound
             name_value = response_dict[compound][0]['name']
             formula_value = response_dict[compound][0]['formula']
@@ -41,6 +39,10 @@ def get_data():
                                     cross_links_count=cross_links_count_value))
         db.session.commit()
 
+
+@cli.command("print_data")
+def print_data():
+    sql_text = "select  from compounds"
 
 if __name__ == "__main__":
     cli()

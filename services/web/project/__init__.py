@@ -1,7 +1,5 @@
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
-# from config import column_list
-# from manage import get_data
 
 app = Flask(__name__)
 app.config.from_object("project.config.Config")
@@ -33,7 +31,6 @@ class Compound(db.Model):
 @app.route("/")
 def hello_world():
     return jsonify(hello="world!!!")
-    # return print(get_data())
 
 
 if __name__ == '__main__':

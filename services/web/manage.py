@@ -5,6 +5,10 @@ from project import app, db, Compound
 from project.config import baseurl, column_list, column_width
 from time import sleep
 
+logging.basicConfig(level=logging.DEBUG,
+                    filename="logs/app_log.log",
+                    format="%(asctime)s - %(module)s - %(levelname)s - %(funcName)s: %(lineno)d - %(message)s",
+                    datefmt='%Y.%m.%d %H:%M:%S')
 cli = FlaskGroup(app)
 
 
@@ -25,7 +29,9 @@ def get_data():
             logging.error(f"Request failed. Response code: {response.status_code}")
             raise Exception("Request failed", response.status_code, response.reason)
         else:
+            logging.debug(f"Received server's response with code: {response.status_code}")
             response_dict = response.json()
+            logging.debug(f"Json received: {response_dict}")
             compound_value = compound
             name_value = response_dict[compound][0]['name']
             formula_value = response_dict[compound][0]['formula']
@@ -37,7 +43,8 @@ def get_data():
             db.session.add(Compound(compound=compound_value, name=name_value, formula=formula_value,
                                     inchi=inchi_value, inchi_key=inchi_key_value, smiles=smiles_value,
                                     cross_links_count=cross_links_count_value))
-        db.session.commit()
+    db.session.commit()
+    print("Data loaded successfully")
 
 
 @cli.command("print_data")
@@ -63,5 +70,13 @@ def print_data():
     print(line_str)
 
 
+@cli.command("clear_compounds")
+def clear_compounds():
+    sql_text = f"truncate table compounds"
+    db.session.execute(sql_text)
+    db.session.commit()
+    print("Table COMPOUNDS truncated")
+
 if __name__ == "__main__":
     cli()
+

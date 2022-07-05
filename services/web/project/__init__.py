@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -26,11 +26,6 @@ class Compound(db.Model):
         self.inchi_key = inchi_key
         self.smiles = smiles
         self.cross_links_count = cross_links_count
-
-
-@app.route("/")
-def hello_world():
-    return jsonify(hello="world!!!")
 
 
 if __name__ == '__main__':

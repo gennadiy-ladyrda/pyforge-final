@@ -16,10 +16,6 @@ services:
     image: postgres:13-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=dev_user
-      - POSTGRES_PASSWORD=dev_user_pass
-      - POSTGRES_DB=pyforge-final-db
 
 volumes:
   postgres_data:
